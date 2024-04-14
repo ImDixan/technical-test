@@ -1,4 +1,4 @@
-package com.dsoftcode.wastemanager.models;
+package com.dsoftcode.wastemanageraddress.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -14,6 +14,7 @@ import lombok.ToString;
 @Table(name = "WASTE_CENTER_AUTHORIZATION")
 public class WasteCenterAuthorizationEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "AUTHORIZATION_NUMBER")

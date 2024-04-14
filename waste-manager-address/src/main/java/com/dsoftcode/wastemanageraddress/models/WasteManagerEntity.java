@@ -1,4 +1,4 @@
-package com.dsoftcode.wastemanager.models;
+package com.dsoftcode.wastemanageraddress.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -19,12 +19,13 @@ import java.util.List;
 public class WasteManagerEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column()
+    @Column(name = "NOMBRE")
     private String nombre;
 
-    @Column()
+    @Column(name = "NIF")
     private String nif;
 
     @OneToOne(mappedBy = "wasteManager")
@@ -34,15 +35,15 @@ public class WasteManagerEntity {
     @ToString.Exclude
     private List<WasteCenterAuthorizationEntity> listOfWasteCenterAuthorization = new ArrayList<>();
 
-    @Column()
+    @Column(name = "IS_ENABLED")
     private Boolean isEnabled = Boolean.TRUE;
 
-    @Column()
+    @Column(name = "VERSION")
     private Long version = 0L;
 
-    @Column()
+    @Column(name = "CREATED_DATE")
     private Date createdDate;
 
-    @Column()
+    @Column(name = "LAST_MODIFIED_DATE")
     private Date lastModifiedDate;
 }

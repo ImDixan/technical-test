@@ -1,4 +1,4 @@
-package com.dsoftcode.wastemanager.models;
+package com.dsoftcode.wastemanageraddress.models;
 
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -17,6 +17,7 @@ import java.util.Date;
 @Table(name = "WASTE_MANAGER_ADDRESS")
 public class WasteManagerAddressEntity {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "DIRECCION")
