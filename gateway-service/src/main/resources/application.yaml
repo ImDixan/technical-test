@@ -10,19 +10,6 @@ spring:
         locator:
           lower-case-service-id: true
           enabled: true
-#      routes:
-#        - id: wasteManagerRoute
-#          predicates:
-#            - Path=/api/waste-manager/**
-#          uri: lb://waste-manager/**
-#        - id: wasteCenterAuthorizationRoute
-#          uri: lb://waste-manager/api/waste-center-authorization/
-#          predicates:
-#            - Path=/**
-#        - id: wasteManagerAddressRoute
-#          uri: lb://waste-manager-address/api/waste-manager-address
-#          predicates:
-#            - Path=/**
 
 management:
   endpoints:
