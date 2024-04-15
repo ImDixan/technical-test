@@ -1,10 +1,8 @@
 package com.dsoftcode.wastemanager.utils;
 
 import com.dsoftcode.wastemanager.dtos.WasteCenterAuthorizationDto;
-import com.dsoftcode.wastemanager.dtos.WasteManagerAddressDto;
 import com.dsoftcode.wastemanager.dtos.WasteManagerDto;
 import com.dsoftcode.wastemanager.models.WasteCenterAuthorizationEntity;
-import com.dsoftcode.wastemanager.models.WasteManagerAddressEntity;
 import com.dsoftcode.wastemanager.models.WasteManagerEntity;
 import org.springframework.stereotype.Service;
 
@@ -33,23 +31,9 @@ public class Mappers {
 
         wasteManagerDto.setListOfWasteCenterAuthorization(wasteCenterAuthorizationList);
 
-        wasteManagerDto.setWasteManagerAddress(wasteManagerAddressToDto(wasteManagerEntity.getWasteManagerAddressEntity()));
+        wasteManagerDto.setWasteManagerAddress(wasteManagerEntity.getWasteManagerAddress());
 
         return wasteManagerDto;
-    }
-
-    public WasteManagerAddressDto wasteManagerAddressToDto(WasteManagerAddressEntity wasteManagerAddress) {
-
-        WasteManagerAddressDto addressDto = new WasteManagerAddressDto();
-
-        addressDto.setId(wasteManagerAddress.getId());
-        addressDto.setDireccion(wasteManagerAddress.getDireccion());
-        addressDto.setIsEnabled(wasteManagerAddress.getIsEnabled());
-        addressDto.setVersion(wasteManagerAddress.getVersion());
-        addressDto.setCreatedDate(wasteManagerAddress.getCreatedDate());
-        addressDto.setLastModifiedDate(wasteManagerAddress.getLastModifiedDate());
-
-        return addressDto;
     }
 
     public WasteCenterAuthorizationDto wasteCenterAuthorizationToDto(WasteCenterAuthorizationEntity wasteCenterAuthorization) {

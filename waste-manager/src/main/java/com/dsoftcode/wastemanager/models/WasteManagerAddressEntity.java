@@ -28,7 +28,7 @@ public class WasteManagerAddressEntity {
     @ToString.Exclude
     private WasteManagerEntity wasteManager;
 
-    @Column(name = "IS_ENABLE")
+    @Column(name = "IS_ENABLED")
     private Boolean isEnabled = Boolean.TRUE;
 
     @Column(name = "VERSION")

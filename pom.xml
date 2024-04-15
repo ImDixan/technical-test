@@ -12,6 +12,8 @@
 
     <modules>
         <module>waste-manager</module>
+        <module>waste-manager-address</module>
+        <module>eureka-server</module>
     </modules>
 
     <properties>

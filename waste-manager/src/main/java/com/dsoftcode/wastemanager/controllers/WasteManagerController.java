@@ -1,10 +1,8 @@
 package com.dsoftcode.wastemanager.controllers;
 
 import com.dsoftcode.wastemanager.dtos.WasteManagerDto;
-import com.dsoftcode.wastemanager.models.WasteManagerEntity;
 import com.dsoftcode.wastemanager.services.WasteManagerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,7 +30,7 @@ public class WasteManagerController {
         return wasteManagerService.create(wasteManagerDto);
     }
 
-    @PostMapping("/update")
+    @PutMapping("/update")
     public ResponseEntity<String> update(@RequestBody WasteManagerDto wasteManagerDto) {
         return wasteManagerService.update(wasteManagerDto);
     }

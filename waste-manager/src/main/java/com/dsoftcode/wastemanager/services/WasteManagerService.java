@@ -84,7 +84,7 @@ public class WasteManagerService {
         try {
 
 //          Buscar el Waste Manager a actualizar por el id
-            Optional<WasteManagerEntity> wasteManagerOpt = wasteManagerRepository.findById(wasteManagerDto.getId());
+            Optional<WasteManagerEntity> wasteManagerOpt = findOptionalById(wasteManagerDto.getId());
 
             if (wasteManagerOpt.isEmpty()) {
                 return new ResponseEntity<>("No existe un Waste Manager con id: " + wasteManagerDto.getId(), HttpStatus.NOT_FOUND);
@@ -113,5 +113,11 @@ public class WasteManagerService {
 
         }
     }
+
+    public Optional<WasteManagerEntity> findOptionalById(Long wasteManagerId) {
+        return wasteManagerRepository.findById(wasteManagerId);
+    }
+
+
 
 }
