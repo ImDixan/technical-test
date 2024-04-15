@@ -1,5 +1,6 @@
 package com.dsoftcode.wastemanager.models;
 
+import com.dsoftcode.wastemanager.dtos.WasteManagerAddressDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +28,6 @@ public class WasteManagerEntity {
     @Column(name = "NIF")
     private String nif;
 
-    @OneToOne(mappedBy = "wasteManager")
-    private WasteManagerAddressEntity wasteManagerAddressEntity;
-
-    @OneToMany(mappedBy = "wasteManagerEntity")
-    @ToString.Exclude
-    private List<WasteCenterAuthorizationEntity> listOfWasteCenterAuthorization;
-
     @Column(name = "IS_ENABLED")
     private Boolean isEnabled;
 
@@ -45,4 +39,11 @@ public class WasteManagerEntity {
 
     @Column(name = "LAST_MODIFIED_DATE")
     private Date lastModifiedDate;
+
+    @Transient
+    private WasteManagerAddressDto wasteManagerAddress;
+
+    @OneToMany(mappedBy = "wasteManagerEntity")
+    @ToString.Exclude
+    private List<WasteCenterAuthorizationEntity> listOfWasteCenterAuthorization;
 }
