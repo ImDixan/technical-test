@@ -23,8 +23,9 @@ public class WasteManagerAddressEntity {
     @Column(name = "DIRECCION")
     private String direccion;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "WASTE_MANAGER_ID")
+    @ToString.Exclude
     private WasteManagerEntity wasteManager;
 
     @Column(name = "IS_ENABLE")

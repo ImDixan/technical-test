@@ -23,11 +23,11 @@ public class WasteManagerAddressEntity {
     @Column(name = "DIRECCION")
     private String direccion;
 
-    @OneToOne
-    @JoinColumn(name = "WASTE_MANAGER_ID")
-    private WasteManagerEntity wasteManager;
 
-    @Column(name = "IS_ENABLE")
+    @Column(name = "WASTE_MANAGER_ID", unique = true)
+    private Long wasteManagerId;
+
+    @Column(name = "IS_ENABLED")
     private Boolean isEnabled = Boolean.TRUE;
 
     @Column(name = "VERSION")
