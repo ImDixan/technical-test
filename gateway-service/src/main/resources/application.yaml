@@ -1,0 +1,25 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: gateway-service
+
+  cloud:
+    gateway:
+      routes:
+        - id: waste-manager
+          uri: http://localhost:8001
+          predicates:
+            - Path=/api/waste-managers/**
+        - id: waste-center-authorization
+          uri: http://localhost:8001
+          predicates:
+            - Path=/api/waste-center-authorization/**
+
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      default-Zone: http://localhost:8761/eureka
