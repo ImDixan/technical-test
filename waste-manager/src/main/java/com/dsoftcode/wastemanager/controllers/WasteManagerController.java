@@ -10,7 +10,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api/waste-managers")
+@RequestMapping("/api/waste-manager")
 public class WasteManagerController {
 
     private final WasteManagerService wasteManagerService;

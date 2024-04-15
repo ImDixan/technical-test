@@ -4,18 +4,31 @@ server:
 spring:
   application:
     name: gateway-service
-
   cloud:
     gateway:
-      routes:
-        - id: waste-manager
-          uri: http://localhost:8001
-          predicates:
-            - Path=/api/waste-managers/**
-        - id: waste-center-authorization
-          uri: http://localhost:8001
-          predicates:
-            - Path=/api/waste-center-authorization/**
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+#      routes:
+#        - id: wasteManagerRoute
+#          predicates:
+#            - Path=/api/waste-manager/**
+#          uri: lb://waste-manager/**
+#        - id: wasteCenterAuthorizationRoute
+#          uri: lb://waste-manager/api/waste-center-authorization/
+#          predicates:
+#            - Path=/**
+#        - id: wasteManagerAddressRoute
+#          uri: lb://waste-manager-address/api/waste-manager-address
+#          predicates:
+#            - Path=/**
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
 
 eureka:
   instance:

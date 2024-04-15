@@ -24,7 +24,7 @@ public class WasteManagerAddressController {
         return wasteManagerAddressService.create(wasteManagerAddressDto, wasteManagerId);
     }
 
-    @PostMapping("/update/{wasteManagerId}")
+    @PutMapping("/update/{wasteManagerId}")
     public ResponseEntity<String> update(@RequestBody WasteManagerAddressDto wasteManagerAddressDto, @PathVariable("wasteManagerId") Long wasteManagerId) {
         return wasteManagerAddressService.update(wasteManagerAddressDto,wasteManagerId);
     }
