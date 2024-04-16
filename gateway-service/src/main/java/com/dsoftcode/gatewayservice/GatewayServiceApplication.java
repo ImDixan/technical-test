@@ -17,16 +17,17 @@ public class GatewayServiceApplication {
 
 	@Bean
 	RouteLocator gatewayRoutes(RouteLocatorBuilder builder) {
+		// Construye las rutas con el fin centralizar y redirigir las peticiones y respuestas de los servicios a disponer
 		return builder.routes()
 				.route("wasteManagerRoute", routeSpec -> routeSpec
 						.path("/api/waste-manager/**")
-						.uri("lb://waste-manager"))
+						.uri("lb://waste-manager-service"))
 				.route("wasteCenterAuthorizationRoute", routeSpec -> routeSpec
 						.path("/api/waste-center-authorization/**")
-						.uri("lb://waste-manager"))
+						.uri("lb://waste-manager-service"))
 				.route("wasteManagerAddressRoute", routeSpec -> routeSpec
 						.path("/api/waste-manager-address/**")
-						.uri("lb://waste-manager-address"))
+						.uri("lb://waste-manager-address-service"))
 				.build();
 	}
 }

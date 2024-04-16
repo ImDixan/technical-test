@@ -11,10 +11,11 @@
     <description>Technical Test for Java role</description>
 
     <modules>
+        <module>cloud-config-server</module>
         <module>eureka-server</module>
         <module>gateway-service</module>
-        <module>waste-manager</module>
-        <module>waste-manager-address</module>
+        <module>waste-manager-service</module>
+        <module>waste-manager-address-service</module>
     </modules>
 
     <properties>

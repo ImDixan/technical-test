@@ -2,6 +2,6 @@ spring:
   profiles:
     active: dev
   application:
-    name: gateway-service
+    name: waste-manager-service
   config:
     import: optional:configserver:http://localhost:8888
