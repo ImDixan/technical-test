@@ -1,10 +1,11 @@
 package com.dsoftcode.wastemanager.services;
 
+import com.dsoftcode.wastemanager.dtos.WasteManagerAddressDto;
 import com.dsoftcode.wastemanager.dtos.WasteManagerDto;
 import com.dsoftcode.wastemanager.models.WasteManagerEntity;
 import com.dsoftcode.wastemanager.repositories.WasteManagerEntityRepository;
 import com.dsoftcode.wastemanager.utils.Mappers;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-@AllArgsConstructor
+
 @Service
+@RequiredArgsConstructor
 public class WasteManagerService {
 
     private final WasteManagerEntityRepository wasteManagerRepository;
     private final Mappers mappers;
+    private final WasteManagerAddressService wasteManagerAddressService;
 
     public ResponseEntity<List<WasteManagerDto>> findAll() {
         List<WasteManagerEntity> wasteManagers = wasteManagerRepository.findAll();
@@ -38,12 +41,30 @@ public class WasteManagerService {
     }
 
     public ResponseEntity<WasteManagerDto> findById(Long id) {
+
         try {
+            // Busca el Waste Manager por el id
             Optional<WasteManagerEntity> wasteManager = wasteManagerRepository.findById(id);
+
             if (wasteManager.isEmpty()) {
+                //Si no encontró Waste Manager con ese ID returna una Response Entity vacía
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
             } else {
-                return new ResponseEntity<>(mappers.wasteManagerToDto(wasteManager.get()), HttpStatus.OK);
+                //Si encontró Waste Manager con ese ID asigna el contenido del Optional a una variable
+                WasteManagerDto wasteManagerDto = mappers.wasteManagerToDto(wasteManager.get());
+
+                //Hace una peticion al servicio Waste Manager Address usando el ID del waste manager como parametro
+                ResponseEntity<WasteManagerAddressDto> wasteManagerAddressResponse = wasteManagerAddressService.findByWasteManagerId(wasteManagerDto.getId());
+
+                if (wasteManagerAddressResponse.getStatusCode() == HttpStatus.OK) {
+                    //Si encontró Waste Manager Address se asigna el contenido
+                    wasteManagerDto.setWasteManagerAddress(wasteManagerAddressResponse.getBody());
+                } else {
+                    //Si no encontró Waste Manager Address se asigna un objeto vacio
+                    wasteManagerDto.setWasteManagerAddress(new WasteManagerAddressDto());
+                }
+
+                return new ResponseEntity<>(wasteManagerDto, HttpStatus.OK);
             }
         } catch (Exception error) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
@@ -117,7 +138,6 @@ public class WasteManagerService {
     public Optional<WasteManagerEntity> findOptionalById(Long wasteManagerId) {
         return wasteManagerRepository.findById(wasteManagerId);
     }
-
 
 
 }

@@ -5,10 +5,11 @@
     <parent>
         <groupId>com.dsoftcode</groupId>
         <artifactId>waste-management</artifactId>
-        <version>0.0.1-SNAPSHOT</version><!-- lookup parent from repository -->
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>waste-manager-address</artifactId>
+    <artifactId>waste-manager-address-service</artifactId>
+    <packaging>jar</packaging>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
@@ -42,5 +43,14 @@
             <artifactId>spring-cloud-starter-config</artifactId>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>
