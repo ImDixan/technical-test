@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -48,12 +49,25 @@ public class WasteCenterAuthorizationService {
                 wasteCenterAuthorizationRepository.save(center);
             }
 
-            return new ResponseEntity<>("Lista de Waste Center Authorization actualizadas con éxito", HttpStatus.CREATED);
+            return new ResponseEntity<>("Lista de Waste Center Authorization actualizadas con éxito", HttpStatus.OK);
 
         } catch (Exception error) {
 
             return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
 
+        }
+    }
+
+    public ResponseEntity<String> deleteById(Long centerId) {
+        try {
+            Optional<WasteCenterAuthorizationEntity> centerAuthorization  = wasteCenterAuthorizationRepository.findById(centerId);
+            if (centerAuthorization.isEmpty()) {
+                return new ResponseEntity<>("No existe el Waste Center Authorization con id: " + centerId, HttpStatus.BAD_REQUEST);
+            }
+            wasteCenterAuthorizationRepository.delete(centerAuthorization.get());
+            return new ResponseEntity<>("Waste Center Authorization con id: " + centerId + " eliminado con éxito", HttpStatus.OK);
+        } catch (Exception error) {
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 }

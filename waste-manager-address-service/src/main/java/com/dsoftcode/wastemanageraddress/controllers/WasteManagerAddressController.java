@@ -28,4 +28,9 @@ public class WasteManagerAddressController {
     public ResponseEntity<String> update(@RequestBody WasteManagerAddressDto wasteManagerAddressDto, @PathVariable("wasteManagerId") Long wasteManagerId) {
         return wasteManagerAddressService.update(wasteManagerAddressDto,wasteManagerId);
     }
+
+    @DeleteMapping("/delete/{wasteManagerId}")
+    public ResponseEntity<String> delete(@PathVariable("wasteManagerId") Long wasteManagerId) {
+        return wasteManagerAddressService.delete(wasteManagerId);
+    }
 }

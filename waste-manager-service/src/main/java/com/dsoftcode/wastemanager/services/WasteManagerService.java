@@ -26,30 +26,54 @@ public class WasteManagerService {
     private final WasteManagerAddressService wasteManagerAddressService;
 
     public ResponseEntity<List<WasteManagerDto>> findAll() {
-        List<WasteManagerEntity> wasteManagers = wasteManagerRepository.findAll();
-        if (wasteManagers.isEmpty()) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        } else {
-            List<WasteManagerDto> wasteManagersDto = new ArrayList<>();
 
-            for (WasteManagerEntity wasteManager : wasteManagers) {
-                wasteManagersDto.add(mappers.wasteManagerToDto(wasteManager));
+        try {
+
+            List<WasteManagerEntity> wasteManagers = wasteManagerRepository.findAll();
+
+            if (wasteManagers.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            } else {
+                List<WasteManagerDto> wasteManagersDto = new ArrayList<>();
+
+                for (WasteManagerEntity wasteManager : wasteManagers) {
+                    //Hace una peticion al servicio Waste Manager Address usando el ID del waste manager como parametro
+                    ResponseEntity<WasteManagerAddressDto> wasteManagerAddressResponse;
+
+                    wasteManagerAddressResponse = wasteManagerAddressService.findByWasteManagerId(wasteManager.getId());
+
+                    if (wasteManagerAddressResponse.getStatusCode() == HttpStatus.OK) {
+                        //Si encontró Waste Manager Address se asigna el contenido
+                        wasteManager.setWasteManagerAddress(wasteManagerAddressResponse.getBody());
+                    } else {
+                        //Si no encontró Waste Manager Address se asigna un objeto vacio
+                        wasteManager.setWasteManagerAddress(new WasteManagerAddressDto());
+                    }
+                    wasteManagersDto.add(mappers.wasteManagerToDto(wasteManager));
+                }
+
+                return new ResponseEntity<>(wasteManagersDto, HttpStatus.OK);
             }
-
-            return new ResponseEntity<>(wasteManagersDto, HttpStatus.OK);
+        } catch (Exception error) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
     }
 
     public ResponseEntity<WasteManagerDto> findById(Long id) {
 
         try {
+
             // Busca el Waste Manager por el id
             Optional<WasteManagerEntity> wasteManager = wasteManagerRepository.findById(id);
 
             if (wasteManager.isEmpty()) {
+
+                System.out.println("No encontro el manager id");
                 //Si no encontró Waste Manager con ese ID returna una Response Entity vacía
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+
             } else {
+
                 //Si encontró Waste Manager con ese ID asigna el contenido del Optional a una variable
                 WasteManagerDto wasteManagerDto = mappers.wasteManagerToDto(wasteManager.get());
 
@@ -64,11 +88,13 @@ public class WasteManagerService {
                     wasteManagerDto.setWasteManagerAddress(new WasteManagerAddressDto());
                 }
 
+
                 return new ResponseEntity<>(wasteManagerDto, HttpStatus.OK);
             }
         } catch (Exception error) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+
     }
 
     public ResponseEntity<String> create(WasteManagerDto wasteManagerDto) {
@@ -127,6 +153,27 @@ public class WasteManagerService {
             wasteManagerRepository.save(wasteManager);
 
             return new ResponseEntity<>("Waste Manager con id: " + wasteManager.getId() + " actualizado satisfactoriamente", HttpStatus.CREATED);
+
+        } catch (Exception error) {
+//          De ocurrir alguna excepcion devuelve un ResponseEntity con el mensaje de error
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.CONFLICT);
+
+        }
+    }
+
+    public ResponseEntity<String> deleteById(Long id) {
+        try {
+//          Buscar el Waste Manager a actualizar por el id
+            Optional<WasteManagerEntity> wasteManagerOpt = findOptionalById(id);
+            if (wasteManagerOpt.isEmpty()) {
+                return new ResponseEntity<>("No existe un Waste Manager con id: " + id, HttpStatus.BAD_REQUEST);
+            }
+//          Eliminar de existir el Waste Manager Address asociado en la Base de Datos
+            wasteManagerAddressService.delete(id);
+//          Eliminar la entidad en la Base de Datos
+            wasteManagerRepository.delete(wasteManagerOpt.get());
+
+            return new ResponseEntity<>("Waste Manager con id: " + id + " eliminado satisfactoriamente", HttpStatus.OK);
 
         } catch (Exception error) {
 //          De ocurrir alguna excepcion devuelve un ResponseEntity con el mensaje de error

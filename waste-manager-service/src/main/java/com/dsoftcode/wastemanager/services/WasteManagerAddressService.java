@@ -18,5 +18,7 @@ public interface WasteManagerAddressService {
     @PutMapping("/update/{wasteManagerId}")
     ResponseEntity<String> update(@RequestBody WasteManagerAddressDto wasteManagerAddressDto,
                                   @PathVariable("wasteManagerId") Long wasteManagerId);
+    @DeleteMapping("/delete/{wasteManagerId}")
+    ResponseEntity<String> delete(@PathVariable("wasteManagerId") Long wasteManagerId);
 
 }

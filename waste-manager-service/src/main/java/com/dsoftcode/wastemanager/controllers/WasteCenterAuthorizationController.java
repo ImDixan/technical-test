@@ -46,4 +46,16 @@ public class WasteCenterAuthorizationController {
         return centerAuthorizationService.update(centerAuthorizationList, wasteManager.get());
     }
 
+    @DeleteMapping("/delete/{wasteManagerId}/{centerId}")
+    public ResponseEntity<String> deleteById(@PathVariable(name = "wasteManagerId") Long wasteManagerId,
+                                             @PathVariable(name = "centerId") Long centerId) {
+
+        Optional<WasteManagerEntity> wasteManager = wasteManagerService.findOptionalById(wasteManagerId);
+
+        if (wasteManager.isEmpty()) {
+            return  new ResponseEntity<>("Solicitud denegada, no existe Waste Manager con id: " + wasteManagerId, HttpStatus.BAD_REQUEST);
+        }
+        return centerAuthorizationService.deleteById(centerId);
+    }
+
 }

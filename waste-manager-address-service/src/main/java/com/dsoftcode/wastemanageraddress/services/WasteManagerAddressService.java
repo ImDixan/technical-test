@@ -27,7 +27,7 @@ public class WasteManagerAddressService {
         try {
             Optional<WasteManagerAddressEntity> wasteManagerAddress = wasteManagerAddressRepository.findByWasteManagerId(wasteManagerId);
             if (wasteManagerAddress.isEmpty()) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
             } else {
                 return new ResponseEntity<>(mappers.wasteManagerAddressToDto(wasteManagerAddress.get()), HttpStatus.OK);
             }
@@ -61,19 +61,18 @@ public class WasteManagerAddressService {
 
         } catch (Exception error) {
 //          De ocurrir alguna excepcion devuelve un ResponseEntity con el mensaje de error
-            return new ResponseEntity<>(error.getMessage(), HttpStatus.CONFLICT);
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.BAD_REQUEST);
 
         }
     }
 
     public ResponseEntity<String> update(WasteManagerAddressDto wasteManagerAddressDto, Long wasteManagerId) {
         try {
-
 //          Buscar el Waste Manager a actualizar por el id
             Optional<WasteManagerAddressEntity> wasteManagerAddress = wasteManagerAddressRepository.findByWasteManagerId(wasteManagerId);
 
             if (wasteManagerAddress.isEmpty()) {
-                return new ResponseEntity<>("El Waste Manager con id: " + wasteManagerAddressDto.getId() + " no tiene dirección asignada", HttpStatus.NOT_FOUND);
+                return new ResponseEntity<>("El Waste Manager con id: " + wasteManagerAddressDto.getId() + " no tiene dirección asignada", HttpStatus.BAD_REQUEST);
             }
 
 //          Variable WasteManagerEntity para actualizar los datos de la entidad
@@ -90,7 +89,28 @@ public class WasteManagerAddressService {
 //          Guardar la entidad en la Base de Datos
             wasteManagerAddressRepository.save(newWasteManagerAddress);
 
-            return new ResponseEntity<>("Waste Manager Address con managerId: " + wasteManagerId + " actualizado satisfactoriamente", HttpStatus.CREATED);
+            return new ResponseEntity<>("Waste Manager Address con managerId: " + wasteManagerId + " actualizado satisfactoriamente", HttpStatus.OK);
+
+        } catch (Exception error) {
+//          De ocurrir alguna excepcion devuelve un ResponseEntity con el mensaje de error
+            return new ResponseEntity<>(error.getMessage(), HttpStatus.CONFLICT);
+
+        }
+    }
+
+    public ResponseEntity<String> delete(Long wasteManagerId) {
+        try {
+//          Buscar el Waste Manager a eliminar por el id del Waste Manager
+            Optional<WasteManagerAddressEntity> wasteManagerAddress = wasteManagerAddressRepository.findByWasteManagerId(wasteManagerId);
+
+            if (wasteManagerAddress.isEmpty()) {
+                return new ResponseEntity<>("El Waste Manager con id: " + wasteManagerId + " no tiene dirección asignada", HttpStatus.BAD_REQUEST);
+            }
+
+//          Eliminar la entidad en la Base de Datos
+            wasteManagerAddressRepository.delete(wasteManagerAddress.get());
+
+            return new ResponseEntity<>("Waste Manager Address con managerId: " + wasteManagerId + " eliminado con éxito", HttpStatus.OK);
 
         } catch (Exception error) {
 //          De ocurrir alguna excepcion devuelve un ResponseEntity con el mensaje de error
