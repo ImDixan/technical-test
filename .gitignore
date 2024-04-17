@@ -33,4 +33,7 @@ build/
 .vscode/
 
 ### Data Base H2 ###
-data
+data/waste-manager.lock.db
+data/waste-manager.mv.db
+data/wm-address.mv.db
+data/wm-address.lock.db
