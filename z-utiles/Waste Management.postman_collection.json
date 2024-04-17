@@ -1,0 +1,295 @@
+{
+	"info": {
+		"_postman_id": "3bfeaee3-11e9-4127-91ff-9f58a8387dc0",
+		"name": "Waste Management",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "(WM-Service) Find all Waste Managers",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/all",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"all"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Find Waste Managers  by ID",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Create Waste Manager",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nombre\": \"Pedro Pascal\",\r\n    \"nif\": \"Y1234567Z\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Update Waste Manager",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"id\": 1,\r\n        \"nombre\": \"Juan de los Muertos\",\r\n        \"nif\": \"65ADC564W\",\r\n        \"isEnabled\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/update",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Delete Waste Manager",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Create Waste Manager Address",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"direccion\": \"New York City, EEUU\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/address/create/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"address",
+						"create",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Update Waste Manager Address",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": 1,\r\n    \"direccion\": \"Paris, Francia\",\r\n    \"isEnabled\": false,\r\n    \"version\": 0,\r\n    \"createdDate\": \"2024-04-17T03:56:16.530+00:00\",\r\n    \"lastModifiedDate\": null\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/address/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"address",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Delete Waste Manager Address",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/waste-manager/address/delete/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-manager",
+						"address",
+						"delete",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Create Waste Center Authorization",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\"authorizationNumber\": \"4156a564d6aadasdad\"},\r\n    {\"authorizationNumber\": \"sdafafas23232r2rvv\"},\r\n    {\"authorizationNumber\": \"45nnogsngsdgusdufw\"} \r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-center-authorization/create/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-center-authorization",
+						"create",
+						"1"
+					]
+				},
+				"description": "Create Waste Center Authorization:\r\nEnter as Body a list of Waste Center Authorization\r\nPass as Path Variable the id of the Waste Manager Owner"
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Update Waste Center Authorization",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n        {\r\n            \"id\": 1,\r\n            \"authorizationNumber\": \"4156a564d6aadasdad\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"authorizationNumber\": \"sdafafas23232r2rvv\"\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"authorizationNumber\": \"45nnogsngsdgusdufw\"\r\n        }\r\n    ]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/waste-center-authorization/update/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-center-authorization",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "(WM-Service) Delete Waste Center Authorization",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/waste-center-authorization/delete/1/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"waste-center-authorization",
+						"delete",
+						"1",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
